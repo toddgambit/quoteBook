@@ -1,5 +1,5 @@
 var app=angular.module('quoteBook');
-app.service('maxService',function(){
+app.service('maxService',['$cookies',function($cookies){
 	var quotes = [
 	    { text: 'Life isn\'t about getting and having, it\'s about giving and being.', author: 'Kevin Kruse'},
 	    { text: 'Whatever the mind of man can conceive and believe, it can achieve', author: 'Napoleon Hill'},
@@ -9,6 +9,7 @@ app.service('maxService',function(){
 	    { text: 'Life is what happens to you while you\'re busy making other plans.', author: 'John Lennon'},
 	    { text: 'What even is a jQuery?', author: 'Tyler S. McGinnis'}
 	];
+	var quotesNew;
 
 	this.getData = function(){
 		return quotes;
@@ -25,4 +26,30 @@ app.service('maxService',function(){
 			}
 		}
 	}
-});
+
+	this.establishCookies = function(){
+		$cookies['textQuotes'] = quotes;
+	}
+	this.getDataTwo = function(){
+		quotesNew = angular.fromJson($cookies['textQuotes']);
+		return quotesNew;
+	}
+	this.addDataTwo = function($newGuy){
+		if('text' in $newGuy && 'author' in $newGuy){
+			quotesNew.push($newGuy);
+		}
+		$cookies.textQuotes = angular.toJson(quotesNew);
+	}
+	this.removeDataTwo = function($killThis){
+		for(var i=0; i<quotesNew.length;i++){
+			if(quotesNew[i].text === $killThis){
+				quotesNew.splice(i,1);
+			}
+		}
+		$cookies.textQuotes = angular.toJson(quotesNew);
+	}
+
+	if(!$cookies.textQuotes){
+		this.establishCookies();
+	}
+}]);

@@ -1,8 +1,7 @@
 var app = angular.module('quoteBook');
-app.controller('mainCtrl',['$cookies',function($scope,maxService,$cookies){
+app.controller('mainCtrl',function($scope,maxService){
 	$scope.filterFellow = "";
 	$scope.killQuote = "";
-	//$scope.newq = {text:"",author:""};
 	$scope.nText = "";
 	$scope.nAuthor = "";
 	$scope.sShow = false;
@@ -10,12 +9,13 @@ app.controller('mainCtrl',['$cookies',function($scope,maxService,$cookies){
 	$scope.rShow = false;
 
 	$scope.getThoseData = function(){
-		$scope.quotes = maxService.getData();
+		$scope.quotes = maxService.getDataTwo();
 	}
 	$scope.buttonAdd = function(){
 		if($scope.aShow){
 			if($scope.nText !== "" && $scope.nAuthor !== ""){
-				maxService.addData({text:$scope.nText,author:$scope.nAuthor});
+				//maxService.addData({text:$scope.nText,author:$scope.nAuthor});
+				maxService.addDataTwo({text:$scope.nText,author:$scope.nAuthor});
 			}
 		}else{
 			$scope.aShow = true;
@@ -34,7 +34,8 @@ app.controller('mainCtrl',['$cookies',function($scope,maxService,$cookies){
 	}
 	$scope.buttonRemove = function(){
 		if($scope.rShow){
-			maxService.removeData($scope.killQuote);
+			//maxService.removeData($scope.killQuote);
+			maxService.removeDataTwo($scope.killQuote);
 		}else{
 			$scope.aShow = false;
 			$scope.sShow = false;
@@ -43,5 +44,4 @@ app.controller('mainCtrl',['$cookies',function($scope,maxService,$cookies){
 	}
 
 	$scope.getThoseData();
-	$cookies.put('myFavorite','oatmeal');
-}]);
+});
