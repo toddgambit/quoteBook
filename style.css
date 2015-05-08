@@ -1,0 +1,12 @@
+h5{
+	font-size:20px;
+	border-bottom: 1px solid #333;
+	color:#666;
+	margin:0;
+}
+h6{
+	font-size: 18px;
+	font-weight: 400;
+	font-style: italic;
+	margin:15px;
+}
